@@ -13,5 +13,5 @@
 
 ## reference
 
-* [Get an API Key]https://developers.google.com/maps/documentation/javascript/get-api-key
-* [Maps JavaScript API](https://developers.google.com/maps/documentation/javascript/tutorial
+* [Get an API Key]https://developers.google.com/maps/documentation/javascript/get-api-key - How to get api key.
+* [Maps JavaScript API](https://developers.google.com/maps/documentation/javascript/tutorial - tutorial The Maps JavaScript API which you can modify using layers and styles, controls and events, and various services and libraries.
