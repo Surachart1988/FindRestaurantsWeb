@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Restaurants.Web.Models;
+using Restaurants.Web.Service;
 
 namespace Restaurants.Web
 {
@@ -31,8 +33,10 @@ namespace Restaurants.Web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
+            services.AddMemoryCache();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddSingleton<GetAsync<PlacesApiQueryResponse>, GoogleApiService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

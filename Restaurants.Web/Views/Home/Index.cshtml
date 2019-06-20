@@ -1,8 +1,69 @@
-﻿@{
+﻿@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div id="app" style="padding-top: 20px;">
+    <div>
+        <div style="width: 100%;">
+            <div style="flex-direction: row-reverse;display: flex;flex-wrap: wrap;">
+                <div style="width: 50%;">
+                    <div id="map"></div>
+                </div>
+
+                <div style="padding-left: 15px;padding-right: 15px;width: 50%;display: -ms-flexbox;display: flex;-ms-flex-direction: column;flex-direction: column;">
+                    <div id="locationField" class="form-group">
+                        <input id="autocomplete" v-model="keyword" type="text" class="form-control" placeholder="Enter a keyword">
+                        <button class="btn btn-primary"
+                                v-on:click="refreshData">
+                            Search
+                        </button>
+                    </div>
+                    <div>
+                        <div id="listing" class="table-responsive">
+                            <table class="table">
+                                <tbody id="results">
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<div style="display: none">
+    <div id="info-content">
+        <table>
+            <tr id="iw-url-row" class="iw_table_row">
+                <td id="iw-icon" class="iw_table_icon"></td>
+                <td id="iw-url"></td>
+            </tr>
+            <tr id="iw-address-row" class="iw_table_row">
+                <td class="iw_attribute_name">Address:</td>
+                <td id="iw-address"></td>
+            </tr>
+            <tr id="iw-phone-row" class="iw_table_row">
+                <td class="iw_attribute_name">Telephone:</td>
+                <td id="iw-phone"></td>
+            </tr>
+            <tr id="iw-rating-row" class="iw_table_row">
+                <td class="iw_attribute_name">Rating:</td>
+                <td id="iw-rating"></td>
+            </tr>
+            <tr id="iw-website-row" class="iw_table_row">
+                <td class="iw_attribute_name">Website:</td>
+                <td id="iw-website"></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/lib/vue/vue.js"></script>
+    <script src="~/lib/axios/axios.js"></script>
+    <script src="~/js/app.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=@Configuration["google:ApiKey"]&libraries=places&callback=initMap" async defer></script>
+}

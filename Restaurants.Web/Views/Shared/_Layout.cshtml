@@ -7,15 +7,102 @@
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
               crossorigin="anonymous"
-              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"/>
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" />
     </environment>
     <link rel="stylesheet" href="~/css/site.css" />
+    <style>
+        /* Always set the map height explicitly to define the size of the div
+        * element that contains the map. */
+        #map {
+            height: 700px;
+        }
+        /* Optional: Makes the sample page fill the window. */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        table {
+            font-size: 12px;
+        }
+
+        #map {
+            width: 100%;
+        }
+
+        #locationField {
+            line-height: 32px;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-direction: row;
+            flex-direction: row;
+            margin-bottom: 10px;
+        }
+
+        #listing {
+            height: 700px;
+            overflow: auto;
+            left: 442px;
+            top: 0px;
+            cursor: pointer;
+            overflow-x: hidden;
+        }
+
+        #controls {
+            position: absolute;
+            left: 300px;
+            width: 140px;
+            top: 0px;
+            z-index: 5;
+            background-color: #fff;
+        }
+
+        #autocomplete {
+            width: 100%;
+        }
+
+        .placeIcon {
+            width: 20px;
+            height: 34px;
+            margin: 4px;
+        }
+
+        .Icon {
+            width: 24px;
+            height: 24px;
+        }
+
+        #resultsTable {
+            border-collapse: collapse;
+        }
+
+        #rating {
+            font-size: 13px;
+            font-family: Arial Unicode MS;
+        }
+
+        .iw_table_row {
+            height: 18px;
+        }
+
+        .iw_attribute_name {
+            font-weight: bold;
+            text-align: right;
+        }
+
+        .iw_table_icon {
+            text-align: right;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -26,7 +113,7 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                @*<div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
@@ -35,15 +122,15 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                     </ul>
-                </div>
+                </div>*@
             </div>
         </nav>
     </header>
     <div class="container">
-        <partial name="_CookieConsentPartial" />
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
+        <partial name="_CookieConsentPartial" />
     </div>
 
     <footer class="border-top footer text-muted">
@@ -71,7 +158,6 @@
         </script>
     </environment>
     <script src="~/js/site.js" asp-append-version="true"></script>
-
     @RenderSection("Scripts", required: false)
 </body>
 </html>
