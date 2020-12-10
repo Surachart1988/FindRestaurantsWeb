@@ -20,15 +20,7 @@ jobs:
 
     # publishes Blazor project to the release-folder
     - name: Publish .NET Core Project
-      run: dotnet publish Restaurants.Web.csproj -c Release -o release --nologo
-    
-    # changes the base-tag in index.html from '/' to 'BlazorGitHubPagesDemo' to match GitHub Pages repository subdirectory
-    - name: Change base-tag in index.html from / to FindRestaurantsWeb
-      run: sed -i 's/<base href="\/" \/>/<base href="\/FindRestaurantsWeb\/" \/>/g' release/wwwroot/index.html
-    
-    # copy index.html to 404.html to serve the same file when a file is not found
-    - name: copy index.html to 404.html
-      run: cp release/wwwroot/index.html release/wwwroot/404.html
+      run: dotnet publish Restaurants.Web.csproj -c Release -o release
 
     # add .nojekyll file to tell GitHub pages to not treat this as a Jekyll project. (Allow files and folders starting with an underscore)
     - name: Add .nojekyll file
