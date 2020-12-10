@@ -25,11 +25,11 @@ jobs:
     - name: Test
       run: dotnet test --no-restore --verbosity normal 
     - name: Run the Publish
-      run: dotnet publish -c Release -o myapp 
+      run: dotnet publish -c Release -o release  
     
     - name: Commit wwwroot to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@3.7.1
       with:
         BRANCH: gh-pages
-        FOLDER: ./myapp
+        FOLDER: release 
 
