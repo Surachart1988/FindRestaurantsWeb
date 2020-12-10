@@ -18,9 +18,14 @@ jobs:
       with:
         dotnet-version: 2.2
 
-    # publishes Blazor project to the release-folder
-    - name: Publish .NET Core Project
-      run: dotnet publish --configuration Release --no-restore
+    - name: Build with dotnet
+      run: dotnet build –configuration Release
+
+    - name: Test with dotnet
+      run: dotnet test –configuration Release
+
+    - name: Pakage everything up with dotnet
+      run: dotnet publish –configuration Release
 
     # add .nojekyll file to tell GitHub pages to not treat this as a Jekyll project. (Allow files and folders starting with an underscore)
     - name: Add .nojekyll file
