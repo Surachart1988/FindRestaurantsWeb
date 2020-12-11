@@ -7,20 +7,27 @@
 
 <div id="app" style="padding-top: 20px;">
     <div>
-        <div style="width: 100%;">
+        <div>
+
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text" id="btnGroupAddon">Find Restaurants Near you :</div>
+                </div>
+                <input type="text" class="form-control" placeholder="Enter a keyword" id="autocomplete" v-model="keyword" aria-label="Input group example" aria-describedby="btnGroupAddon">
+                <button class="btn btn-primary"
+                        v-on:click="refreshData">
+                    Search
+                </button>
+            </div>
+
+            <br />
+
             <div style="flex-direction: row-reverse;display: flex;flex-wrap: wrap;">
                 <div style="width: 50%;">
                     <div id="map"></div>
                 </div>
 
-                <div style="padding-left: 15px;padding-right: 15px;width: 50%;display: -ms-flexbox;display: flex;-ms-flex-direction: column;flex-direction: column;">
-                    <div id="locationField" class="form-group">
-                        <input id="autocomplete" v-model="keyword" type="text" class="form-control" placeholder="Enter a keyword">
-                        <button class="btn btn-primary"
-                                v-on:click="refreshData">
-                            Search
-                        </button>
-                    </div>
+                <div style="width: 50%;">
                     <div>
                         <div id="listing" class="table-responsive">
                             <table class="table">

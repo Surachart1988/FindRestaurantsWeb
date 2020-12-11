@@ -21,17 +21,19 @@ namespace Restaurants.Web.Service
             _service = serv;
         }
 
-        public void Add<TItem>(PlacesApiQueryResponse item, ICacheKey<TItem> key)
+        public void Add(PlacesApiQueryResponse item, string CacheKey)
         {
-            _memoryCache.Set(key.CacheKey, item,
+            _memoryCache.Set(CacheKey, item,
                     new MemoryCacheEntryOptions()
-                    .SetAbsoluteExpiration(TimeSpan.FromSeconds(3)));
+                    .SetSlidingExpiration(TimeSpan.FromMinutes(5))
+                    .SetAbsoluteExpiration(DateTime.Now.AddHours(1)));
         }
 
         public async Task<PlacesApiQueryResponse> GetAsync<TItem>(ICacheKey<TItem> key, string keyword, double lat = 0, double lng = 0) where TItem : class
         {
             PlacesApiQueryResponse data;
-            if (_memoryCache.TryGetValue(key.CacheKey, out data))
+            string cacheKey = $"{key.CacheKey}{keyword}";
+            if (_memoryCache.TryGetValue(cacheKey, out data))
             {
                 return data;
             }
@@ -39,11 +41,11 @@ namespace Restaurants.Web.Service
             {
                 if (lat > 0 && lng > 0)
                 {
-                    data = await _service.GetNearbyAsync(lat, lng); Add(data, new NearPlaceCacheKey());
+                    data = await _service.GetNearbyAsync(lat, lng); Add(data, cacheKey);
                 }
                 else
                 {
-                    data = await _service.GetGeoAsync(keyword); Add(data, new GeoAdrCacheKey());
+                    data = await _service.GetGeoAsync(keyword); Add(data, cacheKey);
                 }
             }
             return data;
@@ -56,7 +58,7 @@ namespace Restaurants.Web.Service
     }
     public interface ICacheStore
     {
-        void Add<TItem>(PlacesApiQueryResponse item, ICacheKey<TItem> key);
+        void Add(PlacesApiQueryResponse item, string key);
 
         Task<PlacesApiQueryResponse> GetAsync<TItem>(ICacheKey<TItem> key, string keyword, double lat = 0, double lng = 0) where TItem : class;
 
